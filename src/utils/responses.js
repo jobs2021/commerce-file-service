@@ -6,6 +6,18 @@ const getError = (code) => {
         message: 'El tamaño del archivo supera el limite maximo'
       }
 
+    case 'BAD_REQUEST':
+      return {
+        status: 400,
+        message: 'La peticion es invalida'
+      }
+
+    case 'UNAUTHORIZED':
+      return {
+        status: 401,
+        message: 'No estas authorizado para acceder'
+      }
+
     default:
       return {
         status: 500,

@@ -6,6 +6,10 @@ const config = {
   
   bucket: process.env.APP_BUCKET,
 
+  jwt: {
+    secret_key: process.env.APP_JWT_SECRET_KEY
+  },
+
   // file
   file: {
     size_limit: 1

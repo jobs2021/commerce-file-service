@@ -1,16 +1,17 @@
-const { access_token } = require('../config/index')
+const jwt = require('jwt-simple')
+const config = require('../config')
+const response = require('../utils/responses')
 
 module.exports = (req, res, next) => {
     try {
-        const accessToken = req.headers['x-access-token']
-        if (!accessToken || accessToken !== access_token) throw new Error()
-        return next()
+        const token = req.headers.authorization.split(' ')[1]
+        if (!token) return response.error(res, 'BAD_REQUEST')
+        
+        const isValid = jwt.decode(token, config.jwt.secret_key)
+        if (!isValid) return response.error(res, 'UNAUTHORIZED')
 
+        next()
     } catch (err) {
-        return res.status(401).json({
-            code: 0,
-            name: 'Unauthorized',
-            message: '`x-access-token` invalid'
-        })
+        return response.error(res, 'UNAUTHORIZED')
     }
 }

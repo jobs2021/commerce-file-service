@@ -1,4 +1,4 @@
-const { fileMiddleware } = require('./middlewares')
+const { fileMiddleware, authMiddleware } = require('./middlewares')
 const { Storage } = require('@google-cloud/storage')
 const { google_credentials, port } = require('./config/index')
 const { getStorage, getPublicUrl } = require('./utils/file')
@@ -36,5 +36,5 @@ const uploadFile = async (req, res) => {
   }
 }
 
-app.post('/api/files', fileMiddleware, uploadFile)
+app.post('/api/files', authMiddleware, fileMiddleware, uploadFile)
 app.listen(port)
