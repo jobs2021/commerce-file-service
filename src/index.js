@@ -10,6 +10,7 @@ const app = express()
 const uploadFile = async (req, res) => {
   try {
     //
+    console.log(req.file)
     const storage = new Storage({credentials: google_credentials})
     const file = getStorage(storage)
 
