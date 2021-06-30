@@ -10,7 +10,6 @@ const app = express()
 const uploadFile = async (req, res) => {
   try {
     //
-    console.log(req.file)
     const storage = new Storage({credentials: google_credentials})
     const file = getStorage(storage)
 
@@ -38,4 +37,4 @@ const uploadFile = async (req, res) => {
 }
 
 app.post('/api/files', authMiddleware, fileMiddleware, uploadFile)
-app.listen(port)
+app.listen(port, () => console.log(`Listening on ${port}`))
